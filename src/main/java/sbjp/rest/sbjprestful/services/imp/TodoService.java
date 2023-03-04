@@ -65,11 +65,9 @@ public class TodoService implements ITodoService{
 				todo.setTitle(request.getTitle());
 				todo.setDescription(request.getDescription());
 				todo.setUpdatedDate(new Date());
-				todo.setDeletedDate(request.getDeletedDate());
 				todo.setStartDate(request.getStartDate());
 				todo.setEndDate(request.getEndDate());
 				todo.setCompleted(request.getCompleted());
-				todo.setLinkid(todoId);
 				check=todoRepository.save(todo);
 			}
 		}else {
@@ -80,7 +78,22 @@ public class TodoService implements ITodoService{
 
 	@Override
 	public Todo findById(int id) {
-		return todoRepository.findOneByIdAndLinkId(id, 1);
+		return todoRepository.findOneByIdAndLinkId(id, 1);// nhớ cái id của user
+	}
+
+	@Override
+	@Transactional
+	public boolean delete(int todoId) {
+		boolean check=false;
+		Todo todo=todoRepository.findOneByIdAndLinkId(todoId,1);
+		try {
+			todoRepository.delete(todo);
+			check=true;
+		} catch (Exception e) {
+			// TODO: handle exception
+			check=false;
+		}
+		return check ;
 	}
 
 

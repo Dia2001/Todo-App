@@ -14,4 +14,5 @@ public interface ITodoService {
 	boolean add(TodoRequest request);
 	boolean update(int todoId,TodoRequest request);
 	Todo findById(int id);
+	boolean delete(int todoId);
 }

@@ -1,4 +1,4 @@
-package sbjp.rest.sbprestful.config;
+package sbjp.rest.sbjprestful.config;
 
 import org.modelmapper.ModelMapper;
 import org.modelmapper.convention.MatchingStrategies;
@@ -15,7 +15,7 @@ import springfox.documentation.spring.web.plugins.Docket;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 @Configuration
-@EnableSwagger2
+//@EnableSwagger2
 public class SwaggerConfiguration {
 	
 	/*
@@ -24,16 +24,11 @@ public class SwaggerConfiguration {
 	 * .apis(RequestHandlerSelectors.basePackage("sbjp.rest.sbjprestful.controller")
 	 * ) .paths(PathSelectors.any()) .build() .pathMapping("/api"); }
 	 */
-	@Bean
-	Docket api() {
-		return new Docket(DocumentationType.SWAGGER_2)
-				.select()
-				.apis(RequestHandlerSelectors.any())
-				.paths(PathSelectors.any())
-				.build()
-				.apiInfo(apiInfo())
-				.pathMapping("/");
-	}
+	/*
+	 * @Bean Docket api() { return new Docket(DocumentationType.SWAGGER_2) .select()
+	 * .apis(RequestHandlerSelectors.any()) .paths(PathSelectors.any()) .build()
+	 * .apiInfo(apiInfo()) .pathMapping("/"); }
+	 */
 
 	@Bean
 	public ModelMapper modelMapper() {
@@ -42,9 +37,8 @@ public class SwaggerConfiguration {
 		return modelMapper;
 	}
 	
-	private ApiInfo apiInfo() {
-		return new ApiInfoBuilder()
-	            .title("Rent For House API")
-	            .build();
-	}
+	/*
+	 * private ApiInfo apiInfo() { return new ApiInfoBuilder()
+	 * .title("Rent For House API") .build(); }
+	 */
 }

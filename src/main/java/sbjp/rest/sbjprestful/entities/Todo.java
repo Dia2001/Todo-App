@@ -13,7 +13,7 @@ import jakarta.persistence.PrePersist;
 import jakarta.persistence.Table;
 import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
-import sbjp.rest.sbprestful.common.Utils;
+import sbjp.rest.sbjprestful.common.Utils;
 
 
 @Entity

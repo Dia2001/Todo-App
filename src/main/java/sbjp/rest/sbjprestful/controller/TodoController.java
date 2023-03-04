@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -62,6 +63,23 @@ public class TodoController {
 				return new ResponseEntity<>("Updated!", HttpStatus.OK);
 			}
 			return new ResponseEntity<>("Update faile!", HttpStatus.BAD_GATEWAY);
+		} catch (Exception ex) {
+			ex.printStackTrace();
+			return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+	}
+	
+	@DeleteMapping("/{todoId}")
+	public ResponseEntity<String> delete(@PathVariable("todoId") int todoId) {
+		try {
+			if (todoService.findById(todoId)== null) {
+				return new ResponseEntity<>("No customers found!", HttpStatus.BAD_GATEWAY);
+			}
+
+			if (todoService.delete(todoId)) {
+				return new ResponseEntity<>("Deleted!", HttpStatus.OK);
+			}
+			return new ResponseEntity<>("Delete faile!", HttpStatus.BAD_GATEWAY);
 		} catch (Exception ex) {
 			ex.printStackTrace();
 			return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);

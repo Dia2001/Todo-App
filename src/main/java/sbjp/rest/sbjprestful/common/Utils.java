@@ -1,4 +1,4 @@
-package sbjp.rest.sbprestful.common;
+package sbjp.rest.sbjprestful.common;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
