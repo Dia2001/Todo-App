@@ -107,7 +107,7 @@ public class UserController {
 		
 		 UserDetails details = av.loadUserByUsername( Utils.GetUserName());
 		    if (details != null && details.getAuthorities().stream()
-		      .anyMatch(a -> a.getAuthority().equals("USER_ROLE"))) {
+		      .anyMatch(a -> a.getAuthority().equals("ROLE_USER"))) {
 		    	  System.out.println("Đây đúng là role user2");
 		    }else {
 		    	System.out.println("Đsây không phải là role2");
