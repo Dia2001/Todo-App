@@ -50,14 +50,14 @@ public class UserService implements IUserService{
 
 	
 	// JWTAuthenticationFilter sẽ sử dụng hàm này
-    @Transactional
-    public UserDetails loadUserById(int id) {
-        User user = userRepository.findById(id).orElseThrow(
-                () -> new UsernameNotFoundException("User not found with id : " + id)
-        );
-
-        return new CustomUserDetails(user);
-    }
+//    @Transactional
+//    public UserDetails loadUserById(int id) {
+//        User user = userRepository.findById(id).orElseThrow(
+//                () -> new UsernameNotFoundException("User not found with id : " + id)
+//        );
+//
+//        return new CustomUserDetails(user);
+    //}
 
 	@Override
 	public User findByUserName() {

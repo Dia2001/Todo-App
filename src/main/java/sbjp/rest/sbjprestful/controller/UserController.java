@@ -9,6 +9,7 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -25,7 +26,6 @@ import sbjp.rest.sbjprestful.clientsever.response.TokenReponse;
 import sbjp.rest.sbjprestful.common.Utils;
 import sbjp.rest.sbjprestful.config.JwtTokenProvider;
 import sbjp.rest.sbjprestful.services.IUserService;
-import sbjp.rest.sbjprestful.services.imp.a;
 import sbjp.rest.sbjprestful.entities.*;
 
 @CrossOrigin(origins = "http://localhost:6661/")
@@ -43,7 +43,7 @@ public class UserController {
 	private JwtTokenProvider tokenProvider;
 	
 	@Autowired
-	private a av;
+	private UserDetailsService av;
 
 	@PostMapping()
 	public ResponseEntity<?> create(@RequestBody UserRequest userRequest) {

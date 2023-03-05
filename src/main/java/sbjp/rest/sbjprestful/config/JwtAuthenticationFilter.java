@@ -10,12 +10,14 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import sbjp.rest.sbjprestful.services.imp.UserService;
-import sbjp.rest.sbjprestful.services.imp.a;
+
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
 import org.springframework.util.StringUtils;
 import org.springframework.web.filter.OncePerRequestFilter;
@@ -25,7 +27,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 	private JwtTokenProvider tokenProvider;
 
 	@Autowired
-	private a customUserDetailsService;
+	private UserDetailsService customUserDetailsService;
 	
 
 	@Override
@@ -45,6 +47,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
 				// Lấy thông tin người dùng từ username
 				UserDetails userDetails = customUserDetailsService.loadUserByUsername(username);
+				System.out.println("debug"+userDetails);
 				if (userDetails != null) {
 					// Nếu người dùng hợp lệ, set thông tin cho Seturity Context
 					UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(
@@ -52,7 +55,15 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 					authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
 
 					SecurityContextHolder.getContext().setAuthentication(authentication);
+					Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+					if (auth != null && auth.getAuthorities().stream().anyMatch(a -> a.getAuthority().equals("ROLE_USER"))) {
+					   System.out.println("Đây đúng là role mèo");
+					}else {
+						 System.out.println("Đây không đúng là role mèo");
+					}
 				}
+			}else {
+				System.out.println("Mèo con vui vẻ");
 			}
 		} catch (Exception ex) {
 			// log.error("failed on set user authentication", ex);

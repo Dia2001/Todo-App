@@ -22,7 +22,7 @@ import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 import sbjp.rest.sbjprestful.services.imp.UserService;
-import sbjp.rest.sbjprestful.services.imp.a;
+
 
 //@Configuration
 //@EnableWebSecurity
@@ -36,7 +36,7 @@ import sbjp.rest.sbjprestful.services.imp.a;
 public class SecurityConfig {
 	
 	@Autowired
-	a userService;
+	UserDetailsService userService;
 
 	@Bean
 	public JwtAuthenticationFilter jwtAuthenticationFilter() {
