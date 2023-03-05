@@ -7,6 +7,8 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 @Entity
 @Table(name = "groupmember")
@@ -26,7 +28,17 @@ public class GroupMember implements Serializable {
 	@Column(name = "group_id", length = 11, nullable = false, insertable = false, updatable = false)
 	private int groupId;
 	
-
+	@Column(name = "type", length = 500, nullable = false)
+	private String type;
+	
+	@ManyToOne
+	@JoinColumn(name = "group_id", nullable = false)
+	private Group group;
+	
+	@ManyToOne
+	@JoinColumn(name = "user_id", nullable = false)
+	private User user;
+	
 	public GroupMember() {
 		super();
 	}
@@ -56,9 +68,33 @@ public class GroupMember implements Serializable {
 		this.groupId = groupId;
 	}
 
-	@Override
-	public String toString() {
-		return "GroupMember [id=" + id + ", user=" + userId + ", group=" + groupId + "]";
+	public String getType() {
+		return type;
 	}
+
+	public void setType(String type) {
+		this.type = type;
+	}
+	
+
+	public Group getGroup() {
+		return group;
+	}
+
+	public void setGroup(Group group) {
+		this.group = group;
+	}
+
+	public User getUser() {
+		return user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
+	}
+
+
+
+	
 
 }

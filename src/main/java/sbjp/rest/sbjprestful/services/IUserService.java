@@ -12,5 +12,5 @@ public interface IUserService {
 	List<User> getAllUser();
 	boolean add(UserRequest request);
 	boolean update(int userId,UserRequest request);
-	User findById(int id);
+	User findByUserName();
 }

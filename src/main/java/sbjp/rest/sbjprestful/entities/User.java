@@ -27,14 +27,14 @@ public class User implements Serializable {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "id", updatable = false)
 	private int id;
-
-	@Column(name = "email", length = 100, nullable = false)
-	private String email;
-
-	@Column(name = "password", length = 500, nullable = false)
+	
+	@Column(name = "username", unique = true, nullable = false, length = 20)
+	private String userName;
+	
+	@Column(name = "password", nullable = false, length = 100)
 	private String password;
 
-	@Column(name = "role", length = 500, nullable = false)
+	@Column(name = "role", length = 20, nullable = false)
 	private String role;
 
 	// @ManyToMany(mappedBy = "group")
@@ -57,12 +57,12 @@ public class User implements Serializable {
 		this.id = id;
 	}
 
-	public String getEmail() {
-		return email;
+	public String getUserName() {
+		return userName;
 	}
 
-	public void setEmail(String email) {
-		this.email = email;
+	public void setUserName(String userName) {
+		this.userName = userName;
 	}
 
 	public String getPassword() {
@@ -71,10 +71,6 @@ public class User implements Serializable {
 
 	public void setPassword(String password) {
 		this.password = password;
-	}
-
-	public static long getSerialversionuid() {
-		return serialVersionUID;
 	}
 
 	public String getRole() {
@@ -95,8 +91,10 @@ public class User implements Serializable {
 
 	@Override
 	public String toString() {
-		return "User [id=" + id + ", email=" + email + ", password=" + password + ", role=" + role + ", groups="
+		return "User [id=" + id + ", userName=" + userName + ", password=" + password + ", role=" + role + ", groups="
 				+ groups + "]";
 	}
+
+	
 
 }

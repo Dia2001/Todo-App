@@ -1,16 +1,16 @@
-package sbjp.rest.sbjprestful.clientsever.request;
+package sbjp.rest.sbjprestful.clientsever.response;
 
-public class UserRequest {
-
+public class UserReponse {
+	
 	private int id;
-
-	private String userName;
-
+	
+	private String email;
+	
 	private String password;
 	
 	private String role;
 
-	public UserRequest() {
+	public UserReponse() {
 		super();
 	}
 
@@ -22,12 +22,12 @@ public class UserRequest {
 		this.id = id;
 	}
 
-	public String getUserName() {
-		return userName;
+	public String getEmail() {
+		return email;
 	}
 
-	public void setUserName(String userName) {
-		this.userName = userName;
+	public void setEmail(String email) {
+		this.email = email;
 	}
 
 	public String getPassword() {
@@ -48,9 +48,6 @@ public class UserRequest {
 
 	@Override
 	public String toString() {
-		return "UserRequest [id=" + id + ", userName=" + userName + ", password=" + password + ", role=" + role + "]";
+		return "UserRequest [id=" + id + ", email=" + email + ", password=" + password + ", role=" + role + "]";
 	}
-
-
-
 }

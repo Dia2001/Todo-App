@@ -9,5 +9,5 @@ import sbjp.rest.sbjprestful.entities.Group;
 
 @Repository
 public interface IGroupRepository extends JpaRepository<Group, Integer> {
-
+      Group findOneByName(String name);
 }

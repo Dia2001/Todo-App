@@ -7,5 +7,5 @@ import sbjp.rest.sbjprestful.entities.User;
 
 @Repository
 public interface IUserRepository extends JpaRepository<User,Integer>{
-
+	User findByuserName(String username);
 }

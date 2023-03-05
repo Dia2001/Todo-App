@@ -1,7 +1,6 @@
 package sbjp.rest.sbjprestful.entities;
 
 import java.io.Serializable;
-import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import jakarta.persistence.Column;
@@ -13,35 +12,33 @@ import jakarta.persistence.PrePersist;
 import jakarta.persistence.Table;
 import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
-import sbjp.rest.sbjprestful.common.Utils;
-
 
 @Entity
 @Table(name = "todo")
-public class Todo implements Serializable{
-	
+public class Todo implements Serializable {
+
 	private static final long serialVersionUID = 1L;
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "todo_id", length = 11)
 	private int id;
-	
+
 	@Column(name = "title", length = 100, nullable = false)
 	private String title;
-	
+
 	@Column(name = "description", length = 500, nullable = false)
 	private String description;
 
-	@Temporal(TemporalType.TIMESTAMP)  
-	@Column(name="created_date",columnDefinition ="DATE DEFAULT CURRENT_DATE",nullable = false)
+	@Temporal(TemporalType.TIMESTAMP)
+	@Column(name = "created_date", columnDefinition = "DATE DEFAULT CURRENT_DATE", nullable = false)
 	private Date createdDate;
 
 	@PrePersist
 	protected void onCreate() {
-	    createdDate = new Date();
+		createdDate = new Date();
 	}
-	
+
 	@Column(name = "updated_date", nullable = true)
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date updatedDate;
@@ -49,21 +46,21 @@ public class Todo implements Serializable{
 	@Column(name = "delete_date", nullable = true)
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date deletedDate;
-	
+
 	@Column(name = "start_date", nullable = true)
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date startDate;
-	
+
 	@Column(name = "end_date", nullable = true)
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date endDate;
 
 	@Column(name = "completed", length = 500, nullable = false)
 	private Boolean completed;
-	
+
 	@Column(name = "link_id", length = 500, nullable = false)
-	private int linkId;
-	
+	private Long linkId;
+
 	@Column(name = "type", length = 500, nullable = false)
 	private String type;
 
@@ -79,6 +76,12 @@ public class Todo implements Serializable{
 		this.id = id;
 	}
 
+	public Long getLinkId() {
+		return linkId;
+	}
+
+	
+
 	public String getTitle() {
 		return title;
 	}
@@ -89,6 +92,10 @@ public class Todo implements Serializable{
 
 	public String getDescription() {
 		return description;
+	}
+
+	public void setLinkId(Long linkId) {
+		this.linkId = linkId;
 	}
 
 	public void setDescription(String description) {
@@ -143,16 +150,6 @@ public class Todo implements Serializable{
 		this.completed = completed;
 	}
 
-	
-
-	public int getLinkid() {
-		return linkId;
-	}
-
-	public void setLinkid(int linkid) {
-		this.linkId = linkid;
-	}
-
 	public String getType() {
 		return type;
 	}
@@ -165,16 +162,4 @@ public class Todo implements Serializable{
 		return serialVersionUID;
 	}
 
-	@Override
-	public String toString() {
-		return "Todo [id=" + id + ", title=" + title + ", description=" + description + ", createdDate=" + createdDate
-				+ ", updatedDate=" + updatedDate + ", deletedDate=" + deletedDate + ", startDate=" + startDate
-				+ ", endDate=" + endDate + ", completed=" + completed + ", linkId=" + linkId + ", type=" + type + "]";
-	}
-
-	
-
-	
-	
-	
 }

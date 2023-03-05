@@ -41,7 +41,7 @@ public class TodoService implements ITodoService{
 		todo.setStartDate(request.getStartDate());
 		todo.setEndDate(request.getEndDate());
 		todo.setCompleted(request.getCompleted());
-		todo.setLinkid(1); // id của user nào thì user đó mới được cập nhật
+		//todo.setLinkid(1L); // id của user nào thì user đó mới được cập nhật
 		todo.setType(TypeRoleEnum.Type_User.getRoleValue());
 		
 		check = todoRepository.save(todo);
