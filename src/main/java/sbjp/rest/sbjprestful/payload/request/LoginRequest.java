@@ -1,12 +1,12 @@
-package sbjp.rest.sbjprestful.clientsever.request;
+package sbjp.rest.sbjprestful.payload.request;
 
-public class TokenRequest {
+public class LoginRequest {
 	
     private String username;
     
     private String password;
 
-	public TokenRequest() {
+	public LoginRequest() {
 		super();
 	}
 

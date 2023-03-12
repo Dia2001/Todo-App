@@ -1,4 +1,4 @@
-package sbjp.rest.sbjprestful.clientsever.request;
+package sbjp.rest.sbjprestful.payload.request;
 
 import java.util.List;
 

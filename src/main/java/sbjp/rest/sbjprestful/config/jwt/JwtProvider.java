@@ -1,4 +1,4 @@
-package sbjp.rest.sbjprestful.config;
+package sbjp.rest.sbjprestful.config.jwt;
 
 import java.util.Date;
 
@@ -14,34 +14,19 @@ import lombok.extern.slf4j.Slf4j;
 
 @Component
 @Slf4j
-public class JwtTokenProvider {
+public class JwtProvider {
 	@Value("${sbjp.app.jwtSecret}")
 	private String jwtSecret;
 
 	@Value("${sbjp.app.jwtExpirationMs}")
 	private int jwtExpirationMs;
-	// private static final Logger logger =
-	// LoggerFactory.getLogger(JwtTokenProvider.class); (JwtTokenProvider.class);
-
-	/*
-	 * alue("${bezkoder.app.jwtSecret}") private String jwtSecret;
-	 * 
-	 * @Value("${bezkoder.app.jwtExpirationMs}") private int jwtExpirationMs;
-	 */
+	
 	public String generateTokenUsingUserName(String userName) {
-		System.out.println("helaaaaaaaaaaaaa");
 		String token = Jwts.builder().setSubject(userName)
 				.setExpiration(new Date(System.currentTimeMillis() + jwtExpirationMs))
 				.signWith(SignatureAlgorithm.HS512,jwtSecret).compact();
-		System.out.println(token + "helaaaaaaaaaaaaa");
 		return token;
 	}
-
-//	public Long getUserIdFromJWT(String token) {
-//		Claims claims = Jwts.parser().setSigningKey(JWT_SECRET).parseClaimsJws(token).getBody();
-//
-//		return Long.parseLong(claims.getSubject());
-//	}
 
 	public String getUserNameFromJwtToken(String token) {
 		return Jwts.parser().setSigningKey(jwtSecret).parseClaimsJws(token).getBody().getSubject();

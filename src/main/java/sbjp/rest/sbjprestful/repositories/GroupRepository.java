@@ -8,6 +8,6 @@ import org.springframework.stereotype.Repository;
 import sbjp.rest.sbjprestful.entities.Group;
 
 @Repository
-public interface IGroupRepository extends JpaRepository<Group, Integer> {
+public interface GroupRepository extends JpaRepository<Group, Integer> {
       Group findOneByName(String name);
 }

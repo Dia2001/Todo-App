@@ -12,16 +12,13 @@ import org.springframework.security.authentication.dao.DaoAuthenticationProvider
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.config.http.SessionCreationPolicy;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
-import sbjp.rest.sbjprestful.services.imp.UserService;
+import sbjp.rest.sbjprestful.config.jwt.JwtAuthTokenFilter;
 
 
 //@Configuration
@@ -33,14 +30,14 @@ import sbjp.rest.sbjprestful.services.imp.UserService;
 		// securedEnabled = true,
 		// jsr250Enabled = true,
 		prePostEnabled = true)
-public class SecurityConfig {
+public class SecurityConfig  {
 	
 	@Autowired
 	UserDetailsService userService;
 
 	@Bean
-	public JwtAuthenticationFilter jwtAuthenticationFilter() {
-		return new JwtAuthenticationFilter();
+	public JwtAuthTokenFilter jwtAuthenticationFilter() {
+		return new JwtAuthTokenFilter();
 	}
 
 //	@Autowired
@@ -116,8 +113,11 @@ public class SecurityConfig {
 	@Bean
 	public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 		http.csrf().disable().authorizeHttpRequests()
-		.requestMatchers("/api/v1/users/login").permitAll()
-		.requestMatchers(HttpMethod.PUT,"/api/v1/users/{userId}").hasRole("ROLE_USER")
+		.requestMatchers("/api/v1/auth/login").permitAll()
+		.requestMatchers(HttpMethod.POST,"/api/v1/users").permitAll()
+		.requestMatchers(HttpMethod.GET,"/api/v1/users").hasRole("ADMIN")
+		.requestMatchers(HttpMethod.DELETE,"/api/v1/users/{userId}").hasRole("ADMIN")
+		.requestMatchers(HttpMethod.PUT,"/api/v1/users/{userId}").hasRole("USER")
 				//.requestMatchers("/**").hasAnyRole("USER", "ADMIN")
 				.anyRequest().authenticated().and()
 				.authenticationProvider(authenticationProvider())

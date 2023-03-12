@@ -1,10 +1,4 @@
-package sbjp.rest.sbjprestful.clientsever.response;
-
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-
+package sbjp.rest.sbjprestful.payload.response;
 
 public class NotificationResponse {
 	

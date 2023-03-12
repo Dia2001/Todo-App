@@ -1,4 +1,4 @@
-package sbjp.rest.sbjprestful.services.imp;
+package sbjp.rest.sbjprestful.services.Impl;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -8,32 +8,35 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
-import sbjp.rest.sbjprestful.clientsever.request.GroupRequest;
-import sbjp.rest.sbjprestful.clientsever.response.GroupReponse;
+import sbjp.rest.sbjprestful.common.Utils;
 import sbjp.rest.sbjprestful.converter.GroupConverter;
 import sbjp.rest.sbjprestful.entities.Group;
 import sbjp.rest.sbjprestful.entities.GroupMember;
 import sbjp.rest.sbjprestful.enums.TypeGroupEnum;
-import sbjp.rest.sbjprestful.repositories.IGroupMemberRepository;
-import sbjp.rest.sbjprestful.repositories.IGroupRepository;
-import sbjp.rest.sbjprestful.repositories.IUserRepository;
-import sbjp.rest.sbjprestful.services.IGroupService;
+import sbjp.rest.sbjprestful.payload.request.GroupRequest;
+import sbjp.rest.sbjprestful.payload.response.GroupReponse;
+import sbjp.rest.sbjprestful.repositories.GroupMemberRepository;
+import sbjp.rest.sbjprestful.repositories.GroupRepository;
+import sbjp.rest.sbjprestful.repositories.UserRepository;
+import sbjp.rest.sbjprestful.services.GroupService;
+import sbjp.rest.sbjprestful.services.UserService;
+
 
 
 @Component
-public class GroupService implements IGroupService {
+public class GroupServiceImpl implements GroupService {
 
 	@Autowired
-	private IGroupRepository groupRepository;
+	private GroupRepository groupRepository;
 
 	@Autowired
-	private IGroupMemberRepository groupMemberRepository;
-	
-	@Autowired
-	private IUserRepository userRepository;
+	private GroupMemberRepository groupMemberRepository;
 	
 	@Autowired
 	private GroupConverter groupConverter;
+	
+	@Autowired
+	private UserService userService;
 
 
 	@Override
@@ -52,10 +55,10 @@ public class GroupService implements IGroupService {
 			check = groupRepository.save(group) != null ? true : false;
 			// Mình sẽ thêm user đang đăng nhập vào hệ thống
 			groupMember.setGroupId(group.getId());
-			groupMember.setUserId(1);
-			groupMember.setType(TypeGroupEnum.Type_Owner.getTypeGrpupValue());
+			groupMember.setUserId(userService.findByUserName().getId());
+			groupMember.setType(1);
 			groupMember.setGroup(group);
-			groupMember.setUser(userRepository.getById(1));
+			groupMember.setUser(userService.findByUserName());
 			check = groupMemberRepository.save(groupMember) != null ? true : false;
 		}
 

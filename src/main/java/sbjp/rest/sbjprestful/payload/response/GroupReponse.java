@@ -1,4 +1,4 @@
-package sbjp.rest.sbjprestful.clientsever.response;
+package sbjp.rest.sbjprestful.payload.response;
 
 import java.util.Set;
 

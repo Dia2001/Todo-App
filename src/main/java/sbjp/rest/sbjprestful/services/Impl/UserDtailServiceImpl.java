@@ -1,4 +1,4 @@
-package sbjp.rest.sbjprestful.services.imp;
+package sbjp.rest.sbjprestful.services.Impl;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,18 +13,20 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
-import sbjp.rest.sbjprestful.repositories.IUserRepository;
+
+import sbjp.rest.sbjprestful.repositories.UserRepository;
 
 @Component
-public class UserDtailService implements UserDetailsService {
+public class UserDtailServiceImpl implements UserDetailsService {
 	@Autowired
-	private IUserRepository userRepository;
+	private UserRepository userRepository;
 
 	@Override
 	@Transactional
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 
 		sbjp.rest.sbjprestful.entities.User user = userRepository.findByuserName(username);
+		System.out.println("con bò ăn cốc"+user.toString());
 		List<GrantedAuthority> authorities = new ArrayList<>();
 
 		authorities.add(new SimpleGrantedAuthority(user.getRole().trim()));

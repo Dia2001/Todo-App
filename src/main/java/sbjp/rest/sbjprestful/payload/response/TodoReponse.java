@@ -1,33 +1,39 @@
-package sbjp.rest.sbjprestful.clientsever.request;
+package sbjp.rest.sbjprestful.payload.response;
 
 import java.util.Date;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 
-public class TodoRequest {
-
+public class TodoReponse {
+	
 	private int id;
-	
+
 	private String title;
-	
+
 	private String description;
 
+	@JsonFormat(pattern="yyyy-MM-dd")
 	private Date createdDate;
 
+	@JsonFormat(pattern="yyyy-MM-dd")
 	private Date updatedDate;
 
+	@JsonFormat(pattern="yyyy-MM-dd")
 	private Date deletedDate;
 	
+	@JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
 	private Date startDate;
 	
+	@JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
 	private Date endDate;
 
 	private Boolean completed;
-	
-	private int link_id;
-	
-	private String type;
 
-	public TodoRequest() {
+	private int link_id;
+
+	private int type;
+
+	public TodoReponse() {
 		super();
 	}
 
@@ -111,11 +117,11 @@ public class TodoRequest {
 		this.link_id = link_id;
 	}
 
-	public String getType() {
+	public int getType() {
 		return type;
 	}
 
-	public void setType(String type) {
+	public void setType(int type) {
 		this.type = type;
 	}
 
@@ -126,6 +132,4 @@ public class TodoRequest {
 				+ startDate + ", endDate=" + endDate + ", completed=" + completed + ", link_id=" + link_id + ", type="
 				+ type + "]";
 	}
-	
-	
 }

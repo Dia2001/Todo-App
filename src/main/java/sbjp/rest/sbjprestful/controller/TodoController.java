@@ -15,10 +15,11 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import sbjp.rest.sbjprestful.clientsever.request.TodoRequest;
-import sbjp.rest.sbjprestful.clientsever.request.UserRequest;
 import sbjp.rest.sbjprestful.entities.Todo;
-import sbjp.rest.sbjprestful.services.ITodoService;
+import sbjp.rest.sbjprestful.payload.request.TodoRequest;
+import sbjp.rest.sbjprestful.payload.request.TodoSearchRequest;
+import sbjp.rest.sbjprestful.payload.response.TodoReponse;
+import sbjp.rest.sbjprestful.services.TodoService;
 
 @CrossOrigin(origins = "http://localhost:6661/")
 @RestController(value="todoAPIofWeb")
@@ -26,10 +27,10 @@ import sbjp.rest.sbjprestful.services.ITodoService;
 public class TodoController {
 	
 	@Autowired
-	private ITodoService todoService;
+	private TodoService todoService;
 	
 	@GetMapping()
-	public ResponseEntity<List<Todo>> getAll() {
+	public ResponseEntity<List<TodoReponse>> getAll() {
 		try {
 			return new ResponseEntity<>(todoService.getAll(), HttpStatus.OK);
 		} catch (Exception ex) {
@@ -38,6 +39,17 @@ public class TodoController {
 		}
 	}
 	
+	@GetMapping("/{todoId}")
+	public ResponseEntity<TodoReponse> getTodoById(@PathVariable("todoId") int todoId) {
+		try {
+			System.out.println("id: "+ todoId);
+			return new ResponseEntity<>(todoService.getById(todoId), HttpStatus.OK);
+		} catch (Exception ex) {
+			ex.printStackTrace();
+			return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+	}
+
 	@PostMapping()
 	public ResponseEntity<?> create(@RequestBody TodoRequest todoRequest) {
 		try {
@@ -73,7 +85,7 @@ public class TodoController {
 	public ResponseEntity<String> delete(@PathVariable("todoId") int todoId) {
 		try {
 			if (todoService.findById(todoId)== null) {
-				return new ResponseEntity<>("No customers found!", HttpStatus.BAD_GATEWAY);
+				return new ResponseEntity<>("No todo found!", HttpStatus.BAD_GATEWAY);
 			}
 
 			if (todoService.delete(todoId)) {

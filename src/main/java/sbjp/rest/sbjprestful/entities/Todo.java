@@ -8,7 +8,6 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.PrePersist;
 import jakarta.persistence.Table;
 import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
@@ -34,10 +33,7 @@ public class Todo implements Serializable {
 	@Column(name = "created_date", columnDefinition = "DATE DEFAULT CURRENT_DATE", nullable = false)
 	private Date createdDate;
 
-	@PrePersist
-	protected void onCreate() {
-		createdDate = new Date();
-	}
+	protected void onCreate() { createdDate = new Date(); }
 
 	@Column(name = "updated_date", nullable = true)
 	@Temporal(TemporalType.TIMESTAMP)
@@ -59,10 +55,10 @@ public class Todo implements Serializable {
 	private Boolean completed;
 
 	@Column(name = "link_id", length = 500, nullable = false)
-	private Long linkId;
+	private int linkId;
 
 	@Column(name = "type", length = 500, nullable = false)
-	private String type;
+	private int type;
 
 	public Todo() {
 		super();
@@ -76,7 +72,7 @@ public class Todo implements Serializable {
 		this.id = id;
 	}
 
-	public Long getLinkId() {
+	public int getLinkId() {
 		return linkId;
 	}
 
@@ -94,7 +90,7 @@ public class Todo implements Serializable {
 		return description;
 	}
 
-	public void setLinkId(Long linkId) {
+	public void setLinkId(int linkId) {
 		this.linkId = linkId;
 	}
 
@@ -150,16 +146,13 @@ public class Todo implements Serializable {
 		this.completed = completed;
 	}
 
-	public String getType() {
+
+	public int getType() {
 		return type;
 	}
 
-	public void setType(String type) {
+	public void setType(int type) {
 		this.type = type;
-	}
-
-	public static long getSerialversionuid() {
-		return serialVersionUID;
 	}
 
 }

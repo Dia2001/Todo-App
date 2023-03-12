@@ -1,12 +1,12 @@
-package sbjp.rest.sbjprestful.clientsever.response;
+package sbjp.rest.sbjprestful.payload.response;
 
-public class TokenReponse {
+public class JwtTokenResponse {
 	
 	private String accessToken;
 	
     private String tokenType = "Bearer";
 
-    public TokenReponse(String accessToken) {
+    public JwtTokenResponse(String accessToken) {
         this.accessToken = accessToken;
     }
 
