@@ -11,11 +11,10 @@ import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
 import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
-import jakarta.persistence.SequenceGenerator;
 import jakarta.persistence.Table;
-import jakarta.persistence.JoinColumn;
 
 @Entity
 @Table(name = "userr")
@@ -36,9 +35,6 @@ public class User implements Serializable {
 
 	@Column(name = "role", length = 20, nullable = false)
 	private String role;
-
-	// @ManyToMany(mappedBy = "group")
-	// private Set<GroupMember> groups;
 
 	@ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
 	@JoinTable(name = "groupmember", joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id", nullable = false, updatable = false), inverseJoinColumns = {

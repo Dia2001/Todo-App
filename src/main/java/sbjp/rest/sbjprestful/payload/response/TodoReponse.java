@@ -1,66 +1,39 @@
-package sbjp.rest.sbjprestful.entities;
+package sbjp.rest.sbjprestful.payload.response;
 
-import java.io.Serializable;
 import java.util.Date;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
-import jakarta.persistence.Temporal;
-import jakarta.persistence.TemporalType;
+import com.fasterxml.jackson.annotation.JsonFormat;
 
-@Entity
-@Table(name = "todo")
-public class Todo implements Serializable {
-
-	private static final long serialVersionUID = 1L;
-
-	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
-	@Column(name = "todo_id", length = 11)
+public class TodoReponse {
+	
 	private int id;
 
-	@Column(name = "title", length = 100, nullable = false)
 	private String title;
 
-	@Column(name = "description", length = 500, nullable = false)
 	private String description;
 
-	@Temporal(TemporalType.TIMESTAMP)
-	@Column(name = "created_date", columnDefinition = "DATE DEFAULT CURRENT_DATE", nullable = false)
+	@JsonFormat(pattern="yyyy-MM-dd")
 	private Date createdDate;
 
-	protected void onCreate() { createdDate = new Date(); }
-
-	@Column(name = "updated_date", nullable = true)
-	@Temporal(TemporalType.TIMESTAMP)
+	@JsonFormat(pattern="yyyy-MM-dd")
 	private Date updatedDate;
 
-	@Column(name = "delete_date", nullable = true)
-	@Temporal(TemporalType.TIMESTAMP)
+	@JsonFormat(pattern="yyyy-MM-dd")
 	private Date deletedDate;
-
-	@Column(name = "start_date", nullable = true)
-	@Temporal(TemporalType.TIMESTAMP)
+	
+	@JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
 	private Date startDate;
-
-	@Column(name = "end_date", nullable = true)
-	@Temporal(TemporalType.TIMESTAMP)
+	
+	@JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
 	private Date endDate;
 
-	@Column(name = "completed", length = 500, nullable = false)
 	private Boolean completed;
 
-	@Column(name = "link_id", length = 500, nullable = false)
-	private int linkId;
+	private int link_id;
 
-	@Column(name = "type", length = 500, nullable = false)
 	private int type;
 
-	public Todo() {
+	public TodoReponse() {
 		super();
 	}
 
@@ -72,12 +45,6 @@ public class Todo implements Serializable {
 		this.id = id;
 	}
 
-	public int getLinkId() {
-		return linkId;
-	}
-
-	
-
 	public String getTitle() {
 		return title;
 	}
@@ -88,10 +55,6 @@ public class Todo implements Serializable {
 
 	public String getDescription() {
 		return description;
-	}
-
-	public void setLinkId(int linkId) {
-		this.linkId = linkId;
 	}
 
 	public void setDescription(String description) {
@@ -146,6 +109,13 @@ public class Todo implements Serializable {
 		this.completed = completed;
 	}
 
+	public int getLink_id() {
+		return link_id;
+	}
+
+	public void setLink_id(int link_id) {
+		this.link_id = link_id;
+	}
 
 	public int getType() {
 		return type;
@@ -155,4 +125,11 @@ public class Todo implements Serializable {
 		this.type = type;
 	}
 
+	@Override
+	public String toString() {
+		return "TodoRequest [id=" + id + ", title=" + title + ", description=" + description + ", createdDate="
+				+ createdDate + ", updatedDate=" + updatedDate + ", deletedDate=" + deletedDate + ", startDate="
+				+ startDate + ", endDate=" + endDate + ", completed=" + completed + ", link_id=" + link_id + ", type="
+				+ type + "]";
+	}
 }

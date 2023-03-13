@@ -15,25 +15,23 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import sbjp.rest.sbjprestful.clientsever.request.GroupRequest;
-import sbjp.rest.sbjprestful.clientsever.response.GroupReponse;
-import sbjp.rest.sbjprestful.services.IGroupService;
+import sbjp.rest.sbjprestful.payload.request.GMemberRequest;
+import sbjp.rest.sbjprestful.payload.request.GroupRequest;
+import sbjp.rest.sbjprestful.payload.response.GroupReponse;
+import sbjp.rest.sbjprestful.services.GMemberService;
+import sbjp.rest.sbjprestful.services.GroupService;
 
 @CrossOrigin(origins = "http://localhost:6661/")
-@RestController(value="groupAPIofWeb")
+@RestController(value = "groupAPIofWeb")
 @RequestMapping("/api/v1/groups")
 public class GroupController {
-	
+
 	@Autowired
-	private IGroupService groupService;
-	
-	/*
-	 * @GetMapping() public ResponseEntity<List<Todo>> getAll() { try { return new
-	 * ResponseEntity<>(todoService.getAll(), HttpStatus.OK); } catch (Exception ex)
-	 * { ex.printStackTrace(); return new ResponseEntity<>(null,
-	 * HttpStatus.INTERNAL_SERVER_ERROR); } }
-	 */
-	
+	private GroupService groupService;
+
+	@Autowired
+	private GMemberService gMemberService;
+
 	@GetMapping()
 	public ResponseEntity<List<GroupReponse>> getAll() {
 		try {
@@ -43,8 +41,7 @@ public class GroupController {
 			return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
-	
-	
+
 	@PostMapping()
 	public ResponseEntity<?> create(@RequestBody GroupRequest groupRequest) {
 		try {
@@ -58,9 +55,22 @@ public class GroupController {
 			return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
+
+	@PostMapping("/addMember/{groupId}")
+	public ResponseEntity<?> addMember(@PathVariable("groupId") int groupId,
+			@RequestBody GMemberRequest gMemberRequest) {
+		try {
+
+			if (gMemberService.add(groupId, gMemberRequest)) {
+				return new ResponseEntity<>("Created!", HttpStatus.CREATED);
+			}
+			return new ResponseEntity<>("Create faile!", HttpStatus.BAD_GATEWAY);
+		} catch (Exception ex) {
+			ex.printStackTrace();
+			return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+	}
 	
-	
-	// phải có quyền chủ group mới được cập nhật
 	@PutMapping("/{groupId}")
 	public ResponseEntity<String> update(@PathVariable("groupId") int groupId, @RequestBody GroupRequest request) {
 		try {
@@ -68,7 +78,7 @@ public class GroupController {
 				return new ResponseEntity<>("No group found!", HttpStatus.BAD_GATEWAY);
 			}
 
-			if (groupService.update(groupId,request)) {
+			if (groupService.update(groupId, request)) {
 				return new ResponseEntity<>("Updated!", HttpStatus.OK);
 			}
 			return new ResponseEntity<>("Update faile!", HttpStatus.BAD_GATEWAY);
@@ -77,11 +87,11 @@ public class GroupController {
 			return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
-	
+
 	@DeleteMapping("/{groupId}")
 	public ResponseEntity<String> delete(@PathVariable("groupId") int groupId) {
 		try {
-			if (groupService.findById(groupId)== null) {
+			if (groupService.findById(groupId) == null) {
 				return new ResponseEntity<>("No group found!", HttpStatus.BAD_GATEWAY);
 			}
 

@@ -7,10 +7,9 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import sbjp.rest.sbjprestful.clientsever.response.GroupReponse;
 import sbjp.rest.sbjprestful.entities.Group;
 import sbjp.rest.sbjprestful.entities.User;
-import sbjp.rest.sbjprestful.clientsever.response.*;
+import sbjp.rest.sbjprestful.payload.response.*;
 
 @Component
 public class GroupConverter {
@@ -30,7 +29,7 @@ public class GroupConverter {
 		Set<UserReponse> users=new HashSet<>();
 		for(User user: groupEntity.getUsers()) {
 			UserReponse userReponse=new UserReponse();
-			userReponse=userConverter.converToModel(user);
+			userReponse=userConverter.converToReponse(user);
 			users.add(userReponse);
 		}
 		groupReponse.setUsers(users);

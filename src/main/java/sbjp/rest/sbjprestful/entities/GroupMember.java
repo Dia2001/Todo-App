@@ -28,8 +28,8 @@ public class GroupMember implements Serializable {
 	@Column(name = "group_id", length = 11, nullable = false, insertable = false, updatable = false)
 	private int groupId;
 	
-	@Column(name = "type", length = 500, nullable = false)
-	private String type;
+	@Column(name = "type",nullable = false)
+	private int type;
 	
 	@ManyToOne
 	@JoinColumn(name = "group_id", nullable = false)
@@ -68,11 +68,11 @@ public class GroupMember implements Serializable {
 		this.groupId = groupId;
 	}
 
-	public String getType() {
+	public int getType() {
 		return type;
 	}
 
-	public void setType(String type) {
+	public void setType(int type) {
 		this.type = type;
 	}
 	
