@@ -37,7 +37,6 @@ public class Utils {
 	public static int GetIdUser() {
 
 		int idUser = 0;
-		System.out.println("con bò ăn cỏ"+GetUserName());
 		idUser = userRepository.findByuserName(GetUserName()).getId();
 
 		return idUser;

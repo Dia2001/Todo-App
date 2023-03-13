@@ -1,4 +1,4 @@
-package sbjp.rest.sbjprestful.services.Impl;
+package sbjp.rest.sbjprestful.services.impl;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -46,14 +46,12 @@ public class GroupServiceImpl implements GroupService {
 
 		Group groupcCheck = groupRepository.findOneByName(request.getName());
 
-		// nếu group ko tồn tại mới tạo và thêm chủ group vào group
 		if (Objects.isNull(groupcCheck)) {
 			Group group = new Group();
 			GroupMember groupMember = new GroupMember();
 			group.setName(request.getName());
 			group.setTitle(request.getTitle());
 			check = groupRepository.save(group) != null ? true : false;
-			// Mình sẽ thêm user đang đăng nhập vào hệ thống
 			groupMember.setGroupId(group.getId());
 			groupMember.setUserId(userService.findByUserName().getId());
 			groupMember.setType(1);
@@ -101,7 +99,6 @@ public class GroupServiceImpl implements GroupService {
 	}
 
 	@Override
-	// Nhớ lưu ý chỉ có chủ group mới được xem
 	public List<GroupReponse> getAll() {
 		List<GroupReponse> listGroupReponses=new ArrayList<>();
 		List<Group> groups=groupRepository.findAll();

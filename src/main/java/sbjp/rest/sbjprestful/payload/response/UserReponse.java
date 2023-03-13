@@ -4,7 +4,7 @@ public class UserReponse {
 	
 	private int id;
 	
-	private String email;
+	private String userName;
 	
 	private String password;
 	
@@ -22,12 +22,14 @@ public class UserReponse {
 		this.id = id;
 	}
 
-	public String getEmail() {
-		return email;
+	
+
+	public String getUserName() {
+		return userName;
 	}
 
-	public void setEmail(String email) {
-		this.email = email;
+	public void setUserName(String userName) {
+		this.userName = userName;
 	}
 
 	public String getPassword() {
@@ -48,6 +50,9 @@ public class UserReponse {
 
 	@Override
 	public String toString() {
-		return "UserRequest [id=" + id + ", email=" + email + ", password=" + password + ", role=" + role + "]";
+		return "UserReponse [id=" + id + ", userName=" + userName + ", password=" + password + ", role=" + role + "]";
 	}
+	
 }
+
+	

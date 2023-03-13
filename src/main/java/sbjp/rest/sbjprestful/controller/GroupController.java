@@ -70,8 +70,7 @@ public class GroupController {
 			return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
-
-	// phải có quyền chủ group mới được cập nhật
+	
 	@PutMapping("/{groupId}")
 	public ResponseEntity<String> update(@PathVariable("groupId") int groupId, @RequestBody GroupRequest request) {
 		try {

@@ -7,5 +7,4 @@ import sbjp.rest.sbjprestful.entities.GroupMember;
 
 @Repository
 public interface GroupMemberRepository extends JpaRepository<GroupMember, Integer>{
-	//GroupMember findOneByuserIdAndgroupId(int userId, int groupId);
 }

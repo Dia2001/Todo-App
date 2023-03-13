@@ -1,4 +1,4 @@
-package sbjp.rest.sbjprestful.services.Impl;
+package sbjp.rest.sbjprestful.services.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -29,12 +29,11 @@ public class GMemberServiceImpl implements GMemberService {
 
 	@Override
 	public boolean add(int groupId, GMemberRequest grRequest) {
-		System.out.println(groupId+"aaaaaaaaaaaaa"+grRequest.getUserId());
+
 		boolean result = false;
 		
 		if (groupRepository.findById(groupId).isPresent()) {
 			if (userRepository.findById(grRequest.getUserId()).isPresent()) {
-				//if (gMemberRepository.findOneByuserIdAndgroupId(groupId, grRequest.getUserId()) != null) {}  // nhớ làm
 				GroupMember check = null;
 				GroupMember gMember = new GroupMember();
 				gMember.setGroupId(groupId);
@@ -43,10 +42,10 @@ public class GMemberServiceImpl implements GMemberService {
 				gMember.setGroup(groupRepository.getById(groupId));
 				gMember.setUser(userRepository.getById(grRequest.getUserId()));
 				check = gMemberRepository.save(gMember);
-				System.out.println(check+"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
 				result = check != null ? true : false;
 			}
 		}
+		
 		return result;
 	}
 

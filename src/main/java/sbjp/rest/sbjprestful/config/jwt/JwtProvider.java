@@ -20,11 +20,11 @@ public class JwtProvider {
 
 	@Value("${sbjp.app.jwtExpirationMs}")
 	private int jwtExpirationMs;
-	
+
 	public String generateTokenUsingUserName(String userName) {
 		String token = Jwts.builder().setSubject(userName)
 				.setExpiration(new Date(System.currentTimeMillis() + jwtExpirationMs))
-				.signWith(SignatureAlgorithm.HS512,jwtSecret).compact();
+				.signWith(SignatureAlgorithm.HS512, jwtSecret).compact();
 		return token;
 	}
 
@@ -34,17 +34,20 @@ public class JwtProvider {
 
 	public boolean validateToken(String authToken) {
 		try {
+			System.out.println("chạy ra");
 			Jwts.parser().setSigningKey(jwtSecret).parseClaimsJws(authToken);
+			System.out.println("chạy vô");
 			return true;
 		} catch (MalformedJwtException ex) {
-			// log.error("Invalid JWT token");
+			System.out.println("Invalid JWT token");
 		} catch (ExpiredJwtException ex) {
-			// log.error("Expired JWT token");
+			System.out.println("Expired JWT token");
 		} catch (UnsupportedJwtException ex) {
-			// log.error("Unsupported JWT token");
+			System.out.println("Unsupported JWT token");
 		} catch (IllegalArgumentException ex) {
-			// log.error("JWT claims string is empty.");
+			System.out.println("JWT claims string is empty.");
 		}
 		return false;
 	}
+
 }

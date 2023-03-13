@@ -1,4 +1,4 @@
-package sbjp.rest.sbjprestful.services.Impl;
+package sbjp.rest.sbjprestful.services.impl;
 
 import java.util.Date;
 import java.util.List;

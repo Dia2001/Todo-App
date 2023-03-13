@@ -36,9 +36,6 @@ public class User implements Serializable {
 	@Column(name = "role", length = 20, nullable = false)
 	private String role;
 
-	// @ManyToMany(mappedBy = "group")
-	// private Set<GroupMember> groups;
-
 	@ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
 	@JoinTable(name = "groupmember", joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id", nullable = false, updatable = false), inverseJoinColumns = {
 			@JoinColumn(name = "group_id", referencedColumnName = "id", nullable = false, updatable = false) })
