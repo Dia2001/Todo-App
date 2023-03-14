@@ -45,7 +45,6 @@ public class GroupController {
 	@PostMapping()
 	public ResponseEntity<?> create(@RequestBody GroupRequest groupRequest) {
 		try {
-			System.out.println(groupRequest.toString());
 			if (groupService.add(groupRequest)) {
 				return new ResponseEntity<>("Created!", HttpStatus.CREATED);
 			}
@@ -70,7 +69,7 @@ public class GroupController {
 			return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
-	
+
 	@PutMapping("/{groupId}")
 	public ResponseEntity<String> update(@PathVariable("groupId") int groupId, @RequestBody GroupRequest request) {
 		try {

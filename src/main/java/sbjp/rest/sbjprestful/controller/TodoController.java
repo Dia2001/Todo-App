@@ -42,7 +42,6 @@ public class TodoController {
 	@GetMapping("/{todoId}")
 	public ResponseEntity<TodoReponse> getTodoById(@PathVariable("todoId") int todoId) {
 		try {
-			System.out.println("id: "+ todoId);
 			return new ResponseEntity<>(todoService.getById(todoId), HttpStatus.OK);
 		} catch (Exception ex) {
 			ex.printStackTrace();
