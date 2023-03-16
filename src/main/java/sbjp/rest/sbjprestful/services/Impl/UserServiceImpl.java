@@ -5,6 +5,7 @@ import java.util.Objects;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -12,6 +13,7 @@ import sbjp.rest.sbjprestful.common.Utils;
 import sbjp.rest.sbjprestful.converter.UserConverter;
 import sbjp.rest.sbjprestful.entities.Todo;
 import sbjp.rest.sbjprestful.entities.User;
+import sbjp.rest.sbjprestful.exception.UserNotFoundException;
 import sbjp.rest.sbjprestful.payload.request.UserRequest;
 import sbjp.rest.sbjprestful.payload.response.UserReponse;
 import sbjp.rest.sbjprestful.repositories.UserRepository;
@@ -74,6 +76,8 @@ public class UserServiceImpl implements UserService{
 			} catch (Exception e) {
 				check = false;
 			}
+		}else {
+			throw new UserNotFoundException(id);
 		}
 		return check;
 	}

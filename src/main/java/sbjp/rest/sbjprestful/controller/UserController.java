@@ -69,21 +69,13 @@ public class UserController {
 			return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
-	
+
 	@DeleteMapping("/{userId}")
 	public ResponseEntity<String> delete(@PathVariable("userId") int userId) {
-		try {
-			if (userService.findById(userId)== null) {
-				return new ResponseEntity<>("No user found!", HttpStatus.BAD_GATEWAY);
-			}
 
-			if (userService.delete(userId)) {
-				return new ResponseEntity<>("Deleted!", HttpStatus.OK);
-			}
-			return new ResponseEntity<>("Delete faile!", HttpStatus.BAD_GATEWAY);
-		} catch (Exception ex) {
-			ex.printStackTrace();
-			return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+		if (userService.delete(userId)) {
+			return new ResponseEntity<>("Deleted!", HttpStatus.OK);
 		}
+		return new ResponseEntity<>("Delete faile!", HttpStatus.BAD_GATEWAY);
 	}
 }

@@ -26,9 +26,7 @@ public class UserDtailServiceImpl implements UserDetailsService {
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 
 		sbjp.rest.sbjprestful.entities.User user = userRepository.findByuserName(username);
-		System.out.println("con bò ăn cốc"+user.toString());
 		List<GrantedAuthority> authorities = new ArrayList<>();
-
 		authorities.add(new SimpleGrantedAuthority(user.getRole().trim()));
 		return new User(username, user.getPassword(), authorities);
 	}
