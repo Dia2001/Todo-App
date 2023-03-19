@@ -3,7 +3,6 @@ package sbjp.rest.sbjprestful.config.jwt;
 import java.io.IOException;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -16,20 +15,17 @@ import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import sbjp.rest.sbjprestful.repositories.TokenRepository;
 
 public class JwtAuthTokenFilter extends OncePerRequestFilter {
-	
+	@Autowired
 	private JwtProvider tokenProvider;
 
+	@Autowired
 	private UserDetailsService userDetailsService;
-	
-	private JwtBlacklist jwtBlacklist;
 
-	public JwtAuthTokenFilter(JwtBlacklist jwtBlacklist,JwtProvider tokenProvider,UserDetailsService userDetailsService) {
-		this.jwtBlacklist = jwtBlacklist;
-		this.tokenProvider=tokenProvider;
-		this.userDetailsService=userDetailsService;
-	}
+	@Autowired
+	private TokenRepository tokenRepository;
 
 	@Override
 	protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
@@ -37,23 +33,24 @@ public class JwtAuthTokenFilter extends OncePerRequestFilter {
 		try {
 
 			String jwt = getJwtFromRequest(request);
-			if (jwt != null && jwtBlacklist.isBlacklisted(jwt)) {
-				response.setStatus(HttpStatus.UNAUTHORIZED.value());
-			}else {
-				if (jwt != null && tokenProvider.validateToken(jwt)) {
-					String username = tokenProvider.getUserNameFromJwtToken(jwt);
-					UserDetails userDetails = userDetailsService.loadUserByUsername(username);
-					if (userDetails != null) {
-						UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(
-								userDetails, null, userDetails.getAuthorities());
-						authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
+			if (jwt == null) {
+				filterChain.doFilter(request, response);
+				return;
+			}
+			if (jwt != null && tokenProvider.validateToken(jwt)) {
+				String username = tokenProvider.getUserNameFromJwtToken(jwt);
+				UserDetails userDetails = userDetailsService.loadUserByUsername(username);
+				var isTokenValid = tokenRepository.findByToken(jwt).map(t -> !t.isExpired() && !t.isRevoked())
+						.orElse(false);
+				if (userDetails != null && isTokenValid) {
+					UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(
+							userDetails, null, userDetails.getAuthorities());
+					authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
 
-						SecurityContextHolder.getContext().setAuthentication(authentication);
+					SecurityContextHolder.getContext().setAuthentication(authentication);
 
-					}
 				}
 			}
-
 
 		} catch (Exception ex) {
 			System.out.println("failed on set user authentication");
