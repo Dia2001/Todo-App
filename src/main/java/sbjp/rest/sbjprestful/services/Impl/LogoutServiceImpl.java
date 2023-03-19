@@ -11,7 +11,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import sbjp.rest.sbjprestful.repositories.TokenRepository;
 
 @Service
-public class LogoutService implements LogoutHandler {
+public class LogoutServiceImpl implements LogoutHandler {
 	
 	@Autowired
 	private  TokenRepository tokenRepository;
