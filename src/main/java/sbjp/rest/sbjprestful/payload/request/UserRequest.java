@@ -1,5 +1,16 @@
 package sbjp.rest.sbjprestful.payload.request;
 
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
+
+@NoArgsConstructor
+@Getter
+@Setter
+@AllArgsConstructor
+@ToString
 public class UserRequest {
 
 	private int id;
@@ -9,48 +20,5 @@ public class UserRequest {
 	private String password;
 	
 	private String role;
-
-	public UserRequest() {
-		super();
-	}
-
-	public int getId() {
-		return id;
-	}
-
-	public void setId(int id) {
-		this.id = id;
-	}
-
-	public String getUserName() {
-		return userName;
-	}
-
-	public void setUserName(String userName) {
-		this.userName = userName;
-	}
-
-	public String getPassword() {
-		return password;
-	}
-
-	public void setPassword(String password) {
-		this.password = password;
-	}
-
-	public String getRole() {
-		return role;
-	}
-
-	public void setRole(String role) {
-		this.role = role;
-	}
-
-	@Override
-	public String toString() {
-		return "UserRequest [id=" + id + ", userName=" + userName + ", password=" + password + ", role=" + role + "]";
-	}
-
-
 
 }

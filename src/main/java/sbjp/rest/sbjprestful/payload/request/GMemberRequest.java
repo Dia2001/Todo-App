@@ -1,27 +1,19 @@
 package sbjp.rest.sbjprestful.payload.request;
 
-public class GMemberRequest {
 
+
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
+@NoArgsConstructor
+@Getter
+@Setter
+@AllArgsConstructor
+public class GMemberRequest {
 
 	private int userId;
 
-	public GMemberRequest() {
-		super();
-	}
-
-	public int getUserId() {
-		return userId;
-	}
-
-	public void setUserId(int userId) {
-		this.userId = userId;
-	}
-
-	@Override
-	public String toString() {
-		return "GMemberRequest [userId=" + userId + "]";
-	}
-
-	
 
 }

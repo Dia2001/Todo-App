@@ -2,6 +2,7 @@ package sbjp.rest.sbjprestful.config.jwt;
 
 import java.io.IOException;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -17,6 +18,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import sbjp.rest.sbjprestful.repositories.TokenRepository;
 
+@Slf4j
 public class JwtAuthTokenFilter extends OncePerRequestFilter {
 	@Autowired
 	private JwtProvider tokenProvider;
@@ -31,8 +33,8 @@ public class JwtAuthTokenFilter extends OncePerRequestFilter {
 	protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
 			throws ServletException, IOException {
 		try {
-
 			String jwt = getJwtFromRequest(request);
+			System.out.println(jwt);
 			if (jwt == null) {
 				filterChain.doFilter(request, response);
 				return;
@@ -53,7 +55,7 @@ public class JwtAuthTokenFilter extends OncePerRequestFilter {
 			}
 
 		} catch (Exception ex) {
-			System.out.println("failed on set user authentication");
+			log.error("failed on set user authentication");
 		}
 
 		filterChain.doFilter(request, response);

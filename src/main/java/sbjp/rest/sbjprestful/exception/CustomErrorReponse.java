@@ -4,6 +4,17 @@ import java.time.LocalDateTime;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import sbjp.rest.sbjprestful.entities.User;
+import sbjp.rest.sbjprestful.enums.TokenType;
+
+@NoArgsConstructor
+@Getter
+@Setter
+@AllArgsConstructor
 public class CustomErrorReponse {
 	
 	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd hh:mm:ss")
@@ -12,33 +23,5 @@ public class CustomErrorReponse {
 	private int status;
 	
 	private String error;
-
-	public CustomErrorReponse() {
-		super();
-	}
-
-	public LocalDateTime getTimestamp() {
-		return timestamp;
-	}
-
-	public void setTimestamp(LocalDateTime timestamp) {
-		this.timestamp = timestamp;
-	}
-
-	public int getStatus() {
-		return status;
-	}
-
-	public void setStatus(int status) {
-		this.status = status;
-	}
-
-	public String getError() {
-		return error;
-	}
-
-	public void setError(String error) {
-		this.error = error;
-	}
 
 }

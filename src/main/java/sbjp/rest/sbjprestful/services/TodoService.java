@@ -15,6 +15,7 @@ public interface TodoService {
 	List<TodoReponse> getAll();
 	boolean add(TodoRequest request);
 	boolean update(int todoId,TodoRequest request);
+	boolean updateCompleted(TodoRequest request);
 	Todo findById(int id);
 	boolean delete(int todoId);
 	TodoReponse getById(int id);

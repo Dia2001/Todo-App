@@ -1,5 +1,14 @@
 package sbjp.rest.sbjprestful.payload.response;
 
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
+@NoArgsConstructor
+@Getter
+@Setter
+@AllArgsConstructor
 public class JwtTokenResponse {
 	
 	private String accessToken;
@@ -9,21 +18,5 @@ public class JwtTokenResponse {
     public JwtTokenResponse(String accessToken) {
         this.accessToken = accessToken;
     }
-
-	public String getAccessToken() {
-		return accessToken;
-	}
-
-	public void setAccessToken(String accessToken) {
-		this.accessToken = accessToken;
-	}
-
-	public String getTokenType() {
-		return tokenType;
-	}
-
-	public void setTokenType(String tokenType) {
-		this.tokenType = tokenType;
-	}
     
 }

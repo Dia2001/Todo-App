@@ -9,10 +9,18 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 import sbjp.rest.sbjprestful.enums.TokenType;
 
 @Entity
 @Table(name = "token")
+@NoArgsConstructor
+@Getter
+@Setter
+@AllArgsConstructor
 public class Token {
 	@Id
 	@GeneratedValue
@@ -31,63 +39,5 @@ public class Token {
 	@ManyToOne
 	@JoinColumn(name = "user_id")
 	public User user;
-
-	public Token() {
-		super();
-	}
-
-	public Integer getId() {
-		return id;
-	}
-
-	public void setId(Integer id) {
-		this.id = id;
-	}
-
-	public String getToken() {
-		return token;
-	}
-
-	public void setToken(String token) {
-		this.token = token;
-	}
-
-	public TokenType getTokenType() {
-		return tokenType;
-	}
-
-	public void setTokenType(TokenType tokenType) {
-		this.tokenType = tokenType;
-	}
-
-	public boolean isRevoked() {
-		return revoked;
-	}
-
-	public void setRevoked(boolean revoked) {
-		this.revoked = revoked;
-	}
-
-	public boolean isExpired() {
-		return expired;
-	}
-
-	public void setExpired(boolean expired) {
-		this.expired = expired;
-	}
-
-	public User getUser() {
-		return user;
-	}
-
-	public void setUser(User user) {
-		this.user = user;
-	}
-
-	@Override
-	public String toString() {
-		return "Token [id=" + id + ", token=" + token + ", tokenType=" + tokenType + ", revoked=" + revoked
-				+ ", expired=" + expired + ", user=" + user + "]";
-	}
 
 }

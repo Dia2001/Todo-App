@@ -15,9 +15,18 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.Table;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import sbjp.rest.sbjprestful.enums.TokenType;
 
 @Entity
 @Table(name = "userr")
+@NoArgsConstructor
+@Getter
+@Setter
+@AllArgsConstructor
 public class User implements Serializable {
 
 	private static final long serialVersionUID = 1L;
@@ -40,57 +49,5 @@ public class User implements Serializable {
 	@JoinTable(name = "groupmember", joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id", nullable = false, updatable = false), inverseJoinColumns = {
 			@JoinColumn(name = "group_id", referencedColumnName = "id", nullable = false, updatable = false) })
 	private Set<Group> groups = new HashSet<>();
-
-	public User() {
-		super();
-	}
-
-	public int getId() {
-		return id;
-	}
-
-	public void setId(int id) {
-		this.id = id;
-	}
-
-	public String getUserName() {
-		return userName;
-	}
-
-	public void setUserName(String userName) {
-		this.userName = userName;
-	}
-
-	public String getPassword() {
-		return password;
-	}
-
-	public void setPassword(String password) {
-		this.password = password;
-	}
-
-	public String getRole() {
-		return role;
-	}
-
-	public void setRole(String role) {
-		this.role = role;
-	}
-
-	public Set<Group> getGroups() {
-		return groups;
-	}
-
-	public void setGroups(Set<Group> groups) {
-		this.groups = groups;
-	}
-
-	@Override
-	public String toString() {
-		return "User [id=" + id + ", userName=" + userName + ", password=" + password + ", role=" + role + ", groups="
-				+ groups + "]";
-	}
-
-	
 
 }

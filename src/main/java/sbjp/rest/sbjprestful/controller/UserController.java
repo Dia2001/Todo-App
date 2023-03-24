@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -18,6 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 import sbjp.rest.sbjprestful.payload.request.UserRequest;
 import sbjp.rest.sbjprestful.payload.response.UserReponse;
 import sbjp.rest.sbjprestful.services.UserService;
+import lombok.extern.slf4j.Slf4j;
 
 @CrossOrigin(origins = "http://localhost:6661/")
 @RestController(value = "userAPIofWeb")
@@ -26,6 +28,9 @@ public class UserController {
 
 	@Autowired
 	private UserService userService;
+
+	//@Autowired
+	//private SimpMessagingTemplate messagingTemplate;
 
 	@GetMapping()
 	public ResponseEntity<List<UserReponse>> getAll() {
@@ -42,7 +47,6 @@ public class UserController {
 	@PostMapping()
 	public ResponseEntity<?> create(@RequestBody UserRequest userRequest) {
 		try {
-			System.out.println(userRequest.toString());
 			if (userService.add(userRequest)) {
 				return new ResponseEntity<>("Created!", HttpStatus.CREATED);
 			}
