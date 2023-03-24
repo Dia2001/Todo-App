@@ -75,10 +75,8 @@ public class TodoServiceImpl implements TodoService {
 		Todo check = null;
 		Todo todo = todoRepository.findOneById(request.getId());
 		if (Objects.nonNull(todo)) {
-			System.out.println(todo.toString());
 			todo.setCompleted(request.getCompleted());
 			check = todoRepository.save(todo);
-			System.out.println("thành côn g hay thất bại"+check);
 		}
 		return check != null ? true : false;
 	}
