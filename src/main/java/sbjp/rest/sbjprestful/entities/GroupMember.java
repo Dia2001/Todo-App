@@ -10,8 +10,17 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import sbjp.rest.sbjprestful.enums.TokenType;
 @Entity
 @Table(name = "groupmember")
+@NoArgsConstructor
+@Getter
+@Setter
+@AllArgsConstructor
 public class GroupMember implements Serializable {
 	
 	private static final long serialVersionUID = 1L;
@@ -39,62 +48,4 @@ public class GroupMember implements Serializable {
 	@JoinColumn(name = "user_id", nullable = false)
 	private User user;
 	
-	public GroupMember() {
-		super();
-	}
-
-	public int getId() {
-		return id;
-	}
-
-	public void setId(int id) {
-		this.id = id;
-	}
-
-
-	public int getUserId() {
-		return userId;
-	}
-
-	public void setUserId(int userId) {
-		this.userId = userId;
-	}
-
-	public int getGroupId() {
-		return groupId;
-	}
-
-	public void setGroupId(int groupId) {
-		this.groupId = groupId;
-	}
-
-	public int getType() {
-		return type;
-	}
-
-	public void setType(int type) {
-		this.type = type;
-	}
-	
-
-	public Group getGroup() {
-		return group;
-	}
-
-	public void setGroup(Group group) {
-		this.group = group;
-	}
-
-	public User getUser() {
-		return user;
-	}
-
-	public void setUser(User user) {
-		this.user = user;
-	}
-
-
-
-	
-
 }

@@ -20,10 +20,12 @@ public class LogoutServiceImpl implements LogoutHandler {
 	public void logout(HttpServletRequest request, HttpServletResponse response, Authentication authentication) {
 		final String authHeader = request.getHeader("Authorization");
 		final String jwt;
+		
 		if (authHeader == null || !authHeader.startsWith("Bearer ")) {
 			return;
 		}
 		jwt = authHeader.substring(7);
+		
 		var storedToken = tokenRepository.findByToken(jwt).orElse(null);
 		if (storedToken != null) {
 			storedToken.setExpired(true);
@@ -31,5 +33,6 @@ public class LogoutServiceImpl implements LogoutHandler {
 			tokenRepository.save(storedToken);
 			SecurityContextHolder.clearContext();
 		}
+		
 	}
 }

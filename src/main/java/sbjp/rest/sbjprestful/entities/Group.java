@@ -11,9 +11,18 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.Table;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import sbjp.rest.sbjprestful.enums.TokenType;
 
 @Entity
 @Table(name = "groupp")
+@NoArgsConstructor
+@Getter
+@Setter
+@AllArgsConstructor
 public class Group implements Serializable {
 	
 	private static final long serialVersionUID = 1L;
@@ -31,47 +40,5 @@ public class Group implements Serializable {
 	
 	@ManyToMany(mappedBy = "groups", fetch = FetchType.EAGER)
 	private Set<User> users;
-
-	public Group() {
-		super();
-	}
-
-	public int getId() {
-		return id;
-	}
-
-	public void setId(int id) {
-		this.id = id;
-	}
-
-	public String getTitle() {
-		return title;
-	}
-
-	public void setTitle(String title) {
-		this.title = title;
-	}
-
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
-	}
-
-	public Set<User> getUsers() {
-		return users;
-	}
-
-	public void setUsers(Set<User> users) {
-		this.users = users;
-	}
-
-
-	/*
-	 * @Override public String toString() { return "Group [id=" + id + ", title=" +
-	 * title + ", name=" + name + ", users=" + users + "]"; }
-	 */
 	
 }

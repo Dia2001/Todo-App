@@ -13,7 +13,7 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 public class CustomGlobalExceptionHandler extends ResponseEntityExceptionHandler {
 	
 	@ExceptionHandler(UserNotFoundException.class)
-	public ResponseEntity<CustomErrorReponse> customBookNotFound(Exception ex, WebRequest request) {
+	public ResponseEntity<CustomErrorReponse> customUserNotFound(Exception ex, WebRequest request) {
 		CustomErrorReponse errors = new CustomErrorReponse();
 		errors.setTimestamp(LocalDateTime.now());
 		errors.setStatus(HttpStatus.NOT_FOUND.value());

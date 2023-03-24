@@ -45,7 +45,6 @@ public class TodoServiceImpl implements TodoService {
 		todo.setCompleted(false);
 		todo.setCreatedDate(new Date());
 		todo.setLinkId(request.getLink_id());
-		// id của group hoặc null để chừng có gì còn biết nó ở group nào
 		todo.setType(request.getType());
 
 		check = todoRepository.save(todo);
@@ -58,8 +57,6 @@ public class TodoServiceImpl implements TodoService {
 
 		Todo check = null;
 		Todo todo = todoRepository.getById(todoId);
-		System.out.println("chek" + todo.getId());
-
 		if (Objects.nonNull(todo)) {
 			todo.setTitle(request.getTitle());
 			todo.setDescription(request.getDescription());
@@ -68,6 +65,20 @@ public class TodoServiceImpl implements TodoService {
 			todo.setEndDate(request.getEndDate());
 			todo.setCompleted(request.getCompleted());
 			check = todoRepository.save(todo);
+		}
+		return check != null ? true : false;
+	}
+
+	@Override
+	public boolean updateCompleted(TodoRequest request) {
+		System.out.println("dô"+request.toString());
+		Todo check = null;
+		Todo todo = todoRepository.findOneById(request.getId());
+		if (Objects.nonNull(todo)) {
+			System.out.println(todo.toString());
+			todo.setCompleted(request.getCompleted());
+			check = todoRepository.save(todo);
+			System.out.println("thành côn g hay thất bại"+check);
 		}
 		return check != null ? true : false;
 	}

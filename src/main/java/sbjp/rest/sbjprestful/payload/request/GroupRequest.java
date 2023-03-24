@@ -2,8 +2,15 @@ package sbjp.rest.sbjprestful.payload.request;
 
 import java.util.List;
 
-import jakarta.persistence.Column;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
+@NoArgsConstructor
+@Getter
+@Setter
+@AllArgsConstructor
 public class GroupRequest {
 	
 	private String title;
@@ -11,38 +18,5 @@ public class GroupRequest {
 	private String name;
 	
 	private List<UserRequest> userRequests;
-
-	public List<UserRequest> getUserRequests() {
-		return userRequests;
-	}
-
-	public void setUserRequests(List<UserRequest> userRequests) {
-		this.userRequests = userRequests;
-	}
-
-	public GroupRequest() {
-		super();
-	}
-
-	public String getTitle() {
-		return title;
-	}
-
-	public void setTitle(String title) {
-		this.title = title;
-	}
-
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
-	}
-
-	@Override
-	public String toString() {
-		return "GroupRequest [title=" + title + ", name=" + name + "]";
-	}
 	
 }

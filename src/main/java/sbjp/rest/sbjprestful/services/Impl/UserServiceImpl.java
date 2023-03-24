@@ -5,7 +5,6 @@ import java.util.Objects;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -20,7 +19,7 @@ import sbjp.rest.sbjprestful.repositories.UserRepository;
 import sbjp.rest.sbjprestful.services.UserService;
 
 @Component
-public class UserServiceImpl implements UserService{
+public class UserServiceImpl implements UserService {
 
 	@Autowired
 	private UserRepository userRepository;
@@ -31,8 +30,7 @@ public class UserServiceImpl implements UserService{
 	@Override
 	public List<UserReponse> getAllUser() {
 		List<UserReponse> users = userRepository.findAll().stream()
-				.map(item -> userConverter.converToReponse((User) item))
-				.collect(Collectors.toList());
+				.map(item -> userConverter.converToReponse((User) item)).collect(Collectors.toList());
 		return users;
 	}
 
@@ -46,7 +44,6 @@ public class UserServiceImpl implements UserService{
 		return check != null ? true : false;
 	}
 
-
 	@Override
 	@Transactional
 	public User findByUserName() {
@@ -55,7 +52,7 @@ public class UserServiceImpl implements UserService{
 
 	@Override
 	@Transactional
-	public boolean update(int userId,UserRequest request) {
+	public boolean update(int userId, UserRequest request) {
 		User check = null;
 		User user = userRepository.getById(userId);
 		if (Objects.nonNull(user)) {
@@ -67,26 +64,20 @@ public class UserServiceImpl implements UserService{
 
 	@Override
 	public boolean delete(int id) {
-		boolean check = false;
-		if(userRepository.findById(id).isPresent()) {
-			User user =userRepository.findById(id).get();
-			try {
-				userRepository.delete(user);
-				check = true;
-			} catch (Exception e) {
-				check = false;
-			}
-		}else {
-			throw new UserNotFoundException(id);
-		}
+		
+		boolean check = true;
+		User user = userRepository.findById(id)
+				.orElseThrow(() -> new UserNotFoundException(id));
+		userRepository.delete(user);
 		return check;
+		
 	}
 
 	@Override
 	public User findById(int id) {
-		User user=null;
-		if(userRepository.findById(id).isPresent()) {
-			user=userRepository.findById(id).get();
+		User user = null;
+		if (userRepository.findById(id).isPresent()) {
+			user = userRepository.findById(id).get();
 		}
 		return user;
 	}

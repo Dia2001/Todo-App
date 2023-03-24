@@ -1,5 +1,14 @@
 package sbjp.rest.sbjprestful.payload.response;
 
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
+@NoArgsConstructor
+@Getter
+@Setter
+@AllArgsConstructor
 public class UserReponse {
 	
 	private int id;
@@ -10,48 +19,6 @@ public class UserReponse {
 	
 	private String role;
 
-	public UserReponse() {
-		super();
-	}
-
-	public int getId() {
-		return id;
-	}
-
-	public void setId(int id) {
-		this.id = id;
-	}
-
-	
-
-	public String getUserName() {
-		return userName;
-	}
-
-	public void setUserName(String userName) {
-		this.userName = userName;
-	}
-
-	public String getPassword() {
-		return password;
-	}
-
-	public void setPassword(String password) {
-		this.password = password;
-	}
-
-	public String getRole() {
-		return role;
-	}
-
-	public void setRole(String role) {
-		this.role = role;
-	}
-
-	@Override
-	public String toString() {
-		return "UserReponse [id=" + id + ", userName=" + userName + ", password=" + password + ", role=" + role + "]";
-	}
 	
 }
 
